@@ -72,6 +72,11 @@ function RPGTF:RenderTargetOfTarget(unit)
         return
     end
 
+    if self.db and self.db.frame.show_target_of_target == false then
+        self.tot.frame:Hide()
+        return
+    end
+
     if self.testing then
         self.tot.frame:Show()
         self:RenderUnitBar(self.tot, "targettarget", self:TestTargetOfTarget())
@@ -145,9 +150,9 @@ local function OnEvent(_, event, arg1)
 
         RPGTF:InitDB()
         RPGTF:CreateMainFrame()
-        RPGTF:ApplyFramePlacement()
+        RPGTF:RegisterSettingsCategory()
+        RPGTF:ApplyAppearance()
         RPGTF:UpdateBlizzardTargetFrame()
-        RPGTF:UpdateUnit()
 
         driver:UnregisterEvent("ADDON_LOADED")
         driver:RegisterEvent("PLAYER_TARGET_CHANGED")

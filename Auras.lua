@@ -5,10 +5,7 @@ local ICON_GAP = 2
 local MAX_AURAS = 8
 
 local function ApplyFont(font_string, size, outline)
-    local applied = font_string:SetFont(RPGTF.MEDIA.font, size, outline)
-    if applied == false then
-        font_string:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
-    end
+    RPGTF:ApplyFont(font_string, size, outline)
 end
 
 local function HideButton(button)
