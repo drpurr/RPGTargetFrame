@@ -1,10 +1,7 @@
 local ADDON_NAME, RPGTF = ...
 
 local function ApplyFont(font_string, size, outline)
-    local applied = font_string:SetFont(RPGTF.MEDIA.font, size, outline)
-    if applied == false then
-        font_string:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
-    end
+    RPGTF:ApplyFont(font_string, size, outline)
 end
 
 local function ShownName(display_name, name)
@@ -56,6 +53,7 @@ function RPGTF:CreateCastBar(parent)
     local background = bar:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
     background:SetColorTexture(0, 0, 0, 0.8)
+    RPGTF.cast_background = background
 
     local border = CreateFrame("Frame", nil, bar, "BackdropTemplate")
     border:SetFrameLevel(bar:GetFrameLevel() + 4)
@@ -72,6 +70,7 @@ function RPGTF:CreateCastBar(parent)
         },
     })
     border:SetBackdropBorderColor(1, 1, 1, 1)
+    RPGTF.cast_border = border
 
     local name_text = bar:CreateFontString(nil, "OVERLAY")
     ApplyFont(name_text, 11, "OUTLINE")
@@ -224,4 +223,23 @@ function RPGTF:RenderCast(unit, test_cast)
     end
 
     self:ShowCast(info)
+end
+
+function RPGTF:ApplyCastBorder()
+    local border = self.cast_border
+    if not border then
+        return
+    end
+    border:SetBackdrop({
+        edgeFile = self:BorderPath(),
+        edgeSize = 10,
+        insets = {
+            left = 0,
+            right = 0,
+            top = 0,
+            bottom = 0,
+        },
+    })
+    border:SetBackdropBorderColor(1, 1, 1, 1)
+    self:ApplyBackgroundTexture(self.cast_background)
 end
