@@ -125,7 +125,7 @@ function RPGTF:ToggleTest()
 end
 
 local function PrintHelp()
-    RPGTF:Print("Commands: /rpgtt lock, /rpgtt scale N, /rpgtt blizzard, /rpgtt test, /rpgtt reset")
+    RPGTF:Print("Commands: /rpgtt settings, /rpgtt tot, /rpgtt skin Name, /rpgtt lock, /rpgtt scale N, /rpgtt blizzard, /rpgtt test, /rpgtt reset")
 end
 
 local function Handle(msg)
@@ -159,7 +159,39 @@ local function Handle(msg)
         end
         RPGTF.db.frame.scale = scale
         RPGTF:ApplyFramePlacement()
+        if RPGTF.RefreshSettingsPanel then
+            RPGTF:RefreshSettingsPanel()
+        end
         RPGTF:Print("Scale set to " .. scale .. ".")
+        return
+    end
+
+    if cmd == "settings" then
+        RPGTF:ToggleSettings()
+        return
+    end
+
+    if cmd == "tot" then
+        RPGTF.db.frame.show_target_of_target = not RPGTF.db.frame.show_target_of_target
+        RPGTF:RefreshDisplay()
+        if RPGTF.RefreshSettingsPanel then
+            RPGTF:RefreshSettingsPanel()
+        end
+        if RPGTF.db.frame.show_target_of_target then
+            RPGTF:Print("Target of target shown.")
+        else
+            RPGTF:Print("Target of target hidden.")
+        end
+        return
+    end
+
+    if cmd == "skin" then
+        local skin = RPGTF:SelectSkin(rest)
+        if skin then
+            RPGTF:Print("Skin set to " .. skin.name .. ".")
+        else
+            RPGTF:Print("Unknown skin. Try Vigor Dark, Alliance, Horde, Kyrian, Necrolord, Night Fae, or Venthyr.")
+        end
         return
     end
 
@@ -182,10 +214,9 @@ local function Handle(msg)
     if cmd == "reset" then
         RPGTF.testing = false
         RPGTF:ResetDB()
-        RPGTF:ApplyFramePlacement()
         RPGTF:ApplyBarSize()
+        RPGTF:ApplyAppearance()
         RPGTF:UpdateBlizzardTargetFrame()
-        RPGTF:UpdateUnit()
         RPGTF:Print("Settings reset.")
         return
     end
