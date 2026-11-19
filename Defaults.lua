@@ -36,6 +36,11 @@ RPGTF.defaults = {
         scale = 1,
         locked = false,
         hide_blizzard = true,
+        show_target_of_target = true,
+        skin = "vigor_dark",
+        font = "Metamorphous",
+        border = "RPGTF: Vigor Dark",
+        background = "RPGTF: Solid",
     },
 }
 
