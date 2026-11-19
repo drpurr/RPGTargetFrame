@@ -12,6 +12,16 @@ Clone this repository so the folder name is `RPGTargetFrame`:
 
 The folder name has to stay `RPGTargetFrame`. A new TOC needs a full client restart. Later Lua edits need `/reload`.
 
+## Media
+
+The icon, Vigor Dark border, and Metamorphous font belong in this folder:
+
+- `icon.tga`
+- `media/art/dragonriding_sgvigor_border_dark.tga`
+- `media/fonts/Metamorphous-Regular.ttf`
+
+Copy those three files from the RPG Boss Bar addon of the same names before using this addon in game.
+
 ## What it shows
 
 When you have a hard target, the bar shows:
