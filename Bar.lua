@@ -26,10 +26,7 @@ local POWER_COLORS = {
 }
 
 local function ApplyFont(font_string, size, outline)
-    local applied = font_string:SetFont(RPGTF.MEDIA.font, size, outline)
-    if applied == false then
-        font_string:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
-    end
+    RPGTF:ApplyFont(font_string, size, outline)
 end
 
 local function ReactionColor(reaction)
@@ -138,6 +135,7 @@ function RPGTF:CreateUnitBar(parent, name, opts)
     self:ApplyArt(health_bar, width, height)
 
     local power_bar
+    local power_background
     if show_power then
         power_bar = CreateFrame("StatusBar", name .. "Power", frame)
         power_bar:SetHeight(8)
@@ -148,7 +146,7 @@ function RPGTF:CreateUnitBar(parent, name, opts)
         power_bar:SetMinMaxValues(0, 1)
         power_bar:SetValue(0)
 
-        local power_background = power_bar:CreateTexture(nil, "BACKGROUND")
+        power_background = power_bar:CreateTexture(nil, "BACKGROUND")
         power_background:SetAllPoints()
         power_background:SetColorTexture(0, 0, 0, 0.8)
     end
@@ -200,6 +198,8 @@ function RPGTF:CreateUnitBar(parent, name, opts)
         level_text = level_text,
         class_text = class_text,
         dead_text = dead_text,
+        background = background,
+        power_background = power_background,
         width = width,
         height = height,
         name_size = name_size,
